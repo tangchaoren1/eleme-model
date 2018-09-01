@@ -4,8 +4,6 @@ const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
-const HappyPack = require('happypack');
-const vueLoaderConfig = require('./vue-loader.conf')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -58,26 +56,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     minimize: true
   },
   plugins: [
-    new HappyPack({
-        id: 'babel',
-        loaders: [{
-            loader: 'babel-loader'
-        }],
-        // options: vueLoaderConfig
-    }),
-    new HappyPack({
-        id: 'css',
-        loaders: [{
-            loader: 'css-loader'
-        }]
-    }),
-    new HappyPack({
-        id: 'vue',
-        loaders: [{
-            loader: 'vue-loader',
-            options: vueLoaderConfig
-        }]
-    }),
     new ModuleConcatenationPlugin(),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     // new webpack.DefinePlugin({
@@ -96,22 +74,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[chunkhash].css'),
-      // Setting the following option to `false` will not extract CSS from codesplit chunks.
-      // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
-      // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`,
-      // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
       allChunks: true,
     }),
-    // Compress extracted CSS. We are using this plugin so that possible
-    // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
       cssProcessorOptions: config.build.productionSourceMap
         ? { safe: true, map: { inline: false } }
         : { safe: true }
     }),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
-    // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
@@ -120,16 +89,11 @@ const webpackConfig = merge(baseWebpackConfig, {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
       },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-    // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     new webpack.LoaderOptionsPlugin({ options: {} }),
-    // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
     // new webpack.optimize.CommonsChunkPlugin({
@@ -164,7 +128,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: path.resolve(__dirname, '../src/static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }

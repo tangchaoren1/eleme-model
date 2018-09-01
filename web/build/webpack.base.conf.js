@@ -2,6 +2,9 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const HappyPack = require('happypack')
+const vueLoaderConfig = require('./vue-loader.conf')
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -87,6 +90,28 @@ module.exports = {
         }
         ]
     },
+    plugins:[
+        new HappyPack({
+            id: 'babel',
+            loaders: [{
+                loader: 'babel-loader'
+            }],
+            // options: vueLoaderConfig
+        }),
+        new HappyPack({
+            id: 'css',
+            loaders: [{
+                loader: 'css-loader'
+            }]
+        }),
+        new HappyPack({
+            id: 'vue',
+            loaders: [{
+                loader: 'vue-loader',
+                options: vueLoaderConfig
+            }]
+        }),
+    ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

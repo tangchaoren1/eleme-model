@@ -1,21 +1,19 @@
 import { operateCookie } from '@/config/Utils';
 
-// let baseUrl = '';
-// let imageUrl = '';
-// if (process.env.NODE_ENV === 'development') {
-//     // baseUrl = 'http://114.55.235.36:7008/';
-//     // baseUrl = 'http://118.178.229.97/';
-//     baseUrl = 'http://114.55.235.36:7008/';
-//     imageUrl = '';
-// } else {
-//     baseUrl = 'http://118.178.230.105/';
-//     imageUrl = '';
-// }
+let baseUrl = '';
+let imageUrl = '';
+if (process.env.NODE_ENV === 'development') {
+    baseUrl = 'http://127.0.0.1:3030';
+    imageUrl = '';
+} else {
+    baseUrl = 'http://127.0.0.1:3030';
+    imageUrl = '';
+}
 
-// export {
-//     baseUrl,
-//     imageUrl
-// };
+export {
+    baseUrl,
+    imageUrl
+};
 /**
  * 应用服务地址
  */

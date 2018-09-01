@@ -1,8 +1,9 @@
 import axios from './axios.js';
-import { operateCookie } from '@/config/Utils';
+import {baseUrl} from '../config/env';
+// import { operateCookie } from '@/config/Utils';
 export default async (options) => {
     options.type = options.type.toLowerCase();
-    // options.url = getServOauthUrl(options.url);
+    options.url = baseUrl +  options.url;
     if ((options.type === 'get' || options.type === 'delete') && options.data) {
         let dataStr = '';
         if (Array.isArray(options.data)) {
@@ -28,7 +29,7 @@ export default async (options) => {
         pramas = options.data;
     };
     try {
-        axios.defaults.headers.common['Authorization'] = operateCookie.getCookie('token');
+        // axios.defaults.headers.common['Authorization'] = operateCookie.getCookie('token');
         let response;
         if (options.headers) {
             options.method = options.type;

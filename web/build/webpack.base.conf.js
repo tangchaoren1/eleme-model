@@ -51,7 +51,7 @@ module.exports = {
             include: resolve('src'),
         },
         {
-            test: /\.css$/,
+            test: /\.(css|scss)$/,
             loader: ExtractTextPlugin.extract({
                 use: 'happypack/loader?id=css'
                 // use: 'css-loader'
@@ -100,9 +100,7 @@ module.exports = {
         }),
         new HappyPack({
             id: 'css',
-            loaders: [{
-                loader: 'css-loader'
-            }]
+            loaders: ['vue-style-loader', 'css-loader', 'less-loader', 'sass-loader']
         }),
         new HappyPack({
             id: 'vue',

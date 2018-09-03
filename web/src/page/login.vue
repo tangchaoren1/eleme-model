@@ -1,5 +1,8 @@
 <template>
     <div>
+        <header class="login-header">
+            <img src="../static/eleme-logo.jpg" alt="">
+        </header>
         <van-cell-group>
                 <van-field
                     v-model="username"
@@ -53,3 +56,13 @@ import {login} from '../api/getData';
         }
     }
 </script>
+<style lang='scss' scoped>
+    .login-header {
+        padding-top: 40px;
+        text-align: center;
+        img {
+            max-width: 140px;
+        }
+    }
+</style>
+

@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         name: 'login',
-        path: '/',
+        path: '/login',
         title: 'UBI监控平台',
         component: login
     }

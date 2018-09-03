@@ -3,10 +3,10 @@ import { operateCookie } from '@/config/Utils';
 let baseUrl = '';
 let imageUrl = '';
 if (process.env.NODE_ENV === 'development') {
-    baseUrl = 'http://127.0.0.1:3030';
+    baseUrl = 'http://localhost:3030';
     imageUrl = '';
 } else {
-    baseUrl = 'http://127.0.0.1:3030';
+    baseUrl = 'http://localhost:3030';
     imageUrl = '';
 }
 

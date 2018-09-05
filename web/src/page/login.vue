@@ -1,7 +1,7 @@
 <template>
     <div>
         <header class="login-header">
-            <img src="../static/eleme-logo.jpg" alt="">
+            <img src="../static/elmlogo.jpeg" alt="">
         </header>
         <van-cell-group>
                 <van-field
@@ -27,10 +27,14 @@
                 clearable
                 label="短信验证码"
                 placeholder="请输入短信验证码">
-                <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+                <van-button slot="button" size="small" type="primary" v-show="!issend" @click="sendValidateCode">发送验证码</van-button>
+                <van-button slot="button" size="small" type="default" v-show="issend">已发送{{countDown}}s</van-button>
             </van-field>
         </van-cell-group>
-         <van-button type="primary" size="small" @click="submit">提交</van-button>
+        <div class="submit">
+            <van-button type="primary" size="small" @click="submit">提交</van-button>
+        </div>
+         
     </div>
 </template>
 <script>
@@ -40,7 +44,9 @@ import {login} from '../api/getData';
             return {
                 username: '',
                 password: '',
-                smsCode: ''
+                smsCode: '',
+                countDown: 0,
+                issend: false
             }
         },
         methods: {
@@ -52,6 +58,17 @@ import {login} from '../api/getData';
                 login(pramas).then(res => {
                     console.log('哈啊，接口通了', res);
                 })
+            },
+            sendValidateCode() {
+                this.issend = true;
+                this.countDown = 59;
+                let timer = setInterval(() => {
+                    this.countDown--;
+                    if( this.countDown < 0) {
+                        this.issend = false;
+                        clearInterval(timer);
+                    }
+                }, 1000)
             }
         }
     }
@@ -63,6 +80,10 @@ import {login} from '../api/getData';
         img {
             max-width: 140px;
         }
+    }
+    .submit {
+        margin-top: 20px;
+        text-align: center;
     }
 </style>
 
